@@ -3,6 +3,8 @@ package com.myfstrong.mycniao5.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,11 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.myfstrong.mycniao5.R;
+import com.myfstrong.mycniao5.adapter.HomeCategoryAdapter;
+import com.myfstrong.mycniao5.bean.HomeCategory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,6 +31,10 @@ public class HomeFragment extends Fragment {
 
     private SliderLayout mSliderLayout;
     private PagerIndicator indicator;
+    private RecyclerView mRecyclerView;
+    private HomeCategoryAdapter mAdapter;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,17 +43,47 @@ public class HomeFragment extends Fragment {
         /*
         * AndroidImageSlider框架应用于头部Banner的展示
         */
-        mSliderLayout = (SliderLayout) view.findViewById(R.id.slider);
-        //将indicator对象与custom_indicator资源绑定
-        indicator = (PagerIndicator) view.findViewById(R.id.custom_indicator);
-        initSlider();
+        initSlider(view);
 
+        /*
+        * RecycleView
+        */
+        initRecyclerView(view);
 
 
         return  view;
     }
 
-    public void initSlider() {
+    public void initRecyclerView(View view) {
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+
+        List<HomeCategory> datas = new ArrayList<HomeCategory>(15);
+
+        HomeCategory category = new HomeCategory("热门活动",R.drawable.img_big_1,R.drawable.img_1_small1,R.drawable.img_1_small2);
+        datas.add(category);
+
+        category = new HomeCategory("有利可图",R.drawable.img_big_4,R.drawable.img_4_small1,R.drawable.img_4_small2);
+        datas.add(category);
+
+        category = new HomeCategory("品牌街",R.drawable.img_big_2,R.drawable.img_2_small1,R.drawable.img_2_small2);
+        datas.add(category);
+
+        category = new HomeCategory("金融街 包赚翻",R.drawable.img_big_1,R.drawable.img_3_small1,R.drawable.imag_3_small2);
+        datas.add(category);
+
+        category = new HomeCategory("超值购",R.drawable.img_big_0,R.drawable.img_0_small1,R.drawable.img_0_small2);
+        datas.add(category);
+
+        mAdapter = new HomeCategoryAdapter(datas);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+    }
+
+    public void initSlider(View view) {
+        mSliderLayout = (SliderLayout) view.findViewById(R.id.slider);
+        //将indicator对象与custom_indicator资源绑定
+        indicator = (PagerIndicator) view.findViewById(R.id.custom_indicator);
+
         TextSliderView textSliderView = new TextSliderView(this.getActivity());
         textSliderView
                 .image("http://m.360buyimg.com/mobilecms/s300x98_jfs/t2416/102/20949846/13425/a3027ebc/55e6d1b9Ne6fd6d8f.jpg")
