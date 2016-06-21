@@ -19,6 +19,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.myfstrong.mycniao5.R;
 import com.myfstrong.mycniao5.adapter.HomeCategoryAdapter;
 import com.myfstrong.mycniao5.bean.HomeCategory;
+import com.myfstrong.mycniao5.http.OkHttpHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,8 @@ public class HomeFragment extends Fragment {
     private PagerIndicator indicator;
     private RecyclerView mRecyclerView;
     private HomeCategoryAdapter mAdapter;
+
+    private OkHttpHelper okHttpHelper = OkHttpHelper.getInstance();
 
 
     @Nullable

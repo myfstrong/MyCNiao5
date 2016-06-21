@@ -27,8 +27,7 @@
         custom:selected_width="16dp"
         custom:selected_height="3dp"
         custom:unselected_width="16dp"
-        custom:unselected_height="3dp"
-        />
+        custom:unselected_height="3dp" />
 
 
     <android.support.v7.widget.RecyclerView
