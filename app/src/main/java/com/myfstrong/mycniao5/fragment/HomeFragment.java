@@ -1,6 +1,7 @@
 package com.myfstrong.mycniao5.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,11 +19,18 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.myfstrong.mycniao5.R;
 import com.myfstrong.mycniao5.adapter.HomeCategoryAdapter;
+import com.myfstrong.mycniao5.bean.Banner;
 import com.myfstrong.mycniao5.bean.HomeCategory;
+import com.myfstrong.mycniao5.http.BaseCallBack;
 import com.myfstrong.mycniao5.http.OkHttpHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -34,8 +42,9 @@ public class HomeFragment extends Fragment {
     private PagerIndicator indicator;
     private RecyclerView mRecyclerView;
     private HomeCategoryAdapter mAdapter;
+    private List<Banner> mBanner;
 
-    private OkHttpHelper okHttpHelper = OkHttpHelper.getInstance();
+    private OkHttpHelper mOkHttpHelper = OkHttpHelper.getInstance();
 
 
     @Nullable
@@ -55,6 +64,32 @@ public class HomeFragment extends Fragment {
 
 
         return  view;
+    }
+
+    public void requestBanner() {
+        String url ="http://112.124.22.238:8081/course_api/banner/query?type=1";
+
+        mOkHttpHelper.get(url, new BaseCallBack<List<Banner>>() {
+            @Override
+            public void onRequestBefore(Request request) {
+
+            }
+
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onSuccess(Response response, List<Banner> banners) {
+
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+
+            }
+        }
     }
 
     public void initRecyclerView(View view) {
