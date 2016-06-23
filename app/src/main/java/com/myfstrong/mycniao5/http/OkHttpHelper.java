@@ -33,12 +33,11 @@ public class OkHttpHelper {
     private Handler mHandler;
 
     private OkHttpHelper() {
-        mOkHttpClient = new OkHttpClient();
-        builder = mOkHttpClient.newBuilder();
-
-        builder.connectTimeout(10, TimeUnit.SECONDS);
-        builder.readTimeout(10,TimeUnit.SECONDS);
-        builder.writeTimeout(30,TimeUnit.SECONDS);
+        mOkHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10,TimeUnit.SECONDS)
+                .writeTimeout(30,TimeUnit.SECONDS)
+                .build();
 
         mHandler = new Handler(Looper.getMainLooper());
 
@@ -65,7 +64,7 @@ public class OkHttpHelper {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callBack.onFailure(request,e);
+                callBack.onFailure(call,e);
             }
 
             @Override
@@ -76,7 +75,7 @@ public class OkHttpHelper {
                     if (callBack.mType == String.class) {
                         callBack.onSuccess(response,resultStr);
 
-                        callBackSuccess(callBack,call,resultStr);
+                        callBackSuccess(callBack,response,resultStr);
                     } else {
                         try {
                             Object object = mGson.fromJson(resultStr,callBack.mType);
