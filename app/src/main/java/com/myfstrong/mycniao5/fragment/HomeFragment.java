@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         return  view;
     }
 
-    public void requestBanner() {
+    public void doRequest() {
         String url ="http://112.124.22.238:8081/course_api/banner/query?type=1";
 
         mOkHttpHelper.get(url, new BaseCallBack<List<Banner>>() {
